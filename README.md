@@ -130,10 +130,16 @@ Javascript ile basit bir şifreleme örneği yapmak için, aşağıdaki adımlar
 
 Bu basit örnekte kullanılan yöntem, güvenli bir kriptografi yöntemi değildir. Sadece, kriptografi kavramını anlamak ve basit şifreleme işlemleri yapmak için kullanılabilir.
 
+<br />
+
 ---
+
+<br />
 
 # Bu Projedeki Kriptografi
 Bu projedeki yöntem, bir metin veya şifreli metin verildiğinde, metnin karakterlerini belirli sayısal değerlere dönüştürerek şifrelemeyi ve aynı işlemi tersine çevirerek metni şifreden çözmeyi sağlar.
+
+<br />
 
 ## Şifreleme Yöntemi
 Şifreleme işlemi, her karakterin alfabetik pozisyonunu belirli bir sayısal değerle eşleştirerek gerçekleştirilir. Bu eşleştirmeler bir dizi içinde saklanır. Dizi öğeleri, bir karakter ve onun eşleştiği sayısal değeri içerir.
@@ -144,12 +150,16 @@ Bu projedeki yöntem, bir metin veya şifreli metin verildiğinde, metnin karakt
 
 Örneğin, "HELLO" metni şifrelendiğinde, sonuç "9-37-46-46-50" olacaktır.
 
+<br />
+
 ## Şifre Çözme Yöntemi
 Şifre çözme işlemi, şifrelenmiş metnin sayısal değerlerini alır ve bunları dizi eşleştirmelerindeki karakterlere dönüştürür. Sayılar, onaltılık formatında birleştirilmiş bir dize içinde saklanır ve dize "-" karakteriyle ayrılmıştır.
 
 Her sayı, eşleştirmelerdeki bir karakterle eşleştirilir ve sonuç olarak metnin karakterleri elde edilir. Bu karakterler birleştirilir ve orijinal metin elde edilir.
 
 Örneğin, "9-37-46-46-50" şifreli metni çözüldüğünde, sonuç "HELLO" olacaktır.
+
+<br />
 
 ## Kullanım
 Bu yöntem, basit bir şifreleme yöntemi olarak kullanılabilir. Ancak, özellikle hassas veriler için güvenli bir yöntem olarak yeterli değildir. Çünkü bu şifreleme yöntemi, her karakterin eşleştirildiği sabit bir sayısal değer kullanır ve şifrelenmiş metnin yapısı açıkça görülebilir. Bu nedenle, daha güvenli şifreleme yöntemleri kullanmak önemlidir.
