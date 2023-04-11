@@ -127,7 +127,7 @@ Bu basit örnekte kullanılan yöntem, güvenli bir kriptografi yöntemi değild
 
 ---
 
-# Basit Bir Kriptografi Yöntemi
+# Bu Projedeki Kriptografi
 Bu projedeki yöntem, bir metin veya şifreli metin verildiğinde, metnin karakterlerini belirli sayısal değerlere dönüştürerek şifrelemeyi ve aynı işlemi tersine çevirerek metni şifreden çözmeyi sağlar.
 
 ## Şifreleme Yöntemi
