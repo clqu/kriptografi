@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Kriptografi Uygulaması</title>
+    <script src="scripts/index.js"></script>
+    <script src="https://jsuites.net/v4/jsuites.js"></script>
+    <link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css" />
+    <link rel="stylesheet" href="styles/index.css">
+    <script src="scripts/crypto.js"></script>
+</head>
+
+<body id="window">
+    <div class="bar">
+        <div class="title">Kriptografi Uygulaması</div>
+        <div class="nav-buttons">
+            <div class="button minimizeButton" id="minimize">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                    <path d="M6.75 9.25a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z" />
+                </svg>
+            </div>
+            <div class="button closeButton" id="close">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                    <path
+                        d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div class="app">
+        <div id="tabs">
+            <div>
+                <div>
+                    <p>Şifrele</p>
+                </div>
+                <div>
+                    <p>Şifre Çöz</p>
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <div class="form">
+                        <div class="input">
+                            <div class="label">Şifrelenecek Metin</div>
+                            <textarea id="enc-text" class="text" placeholder="Metin giriniz..."></textarea>
+                        </div>
+
+                        <div class="form-buttons">
+                            <div id="encryptButton" class="button" onclick="encryptSubmit()">Şifrele</div>
+                        </div>
+                    </div>
+
+                    <div class="result">
+                        <div class="label">Sonuç</div>
+                        <span id="enc-result" class="text">Metin şifrelendiğinde burada gözükecek.</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="form">
+                        <div class="input">
+                            <div class="label">Şifrelenmiş Metin</div>
+                            <textarea id="dec-text" class="text" placeholder="Metin giriniz..."></textarea>
+                        </div>
+
+                        <div class="form-buttons">
+                            <div id="encryptButton" class="button" onclick="decryptSubmit()">Çöz</div>
+                        </div>
+                    </div>
+
+                    <div class="result">
+                        <div class="label">Sonuç</div>
+                        <span id="dec-result" class="text">Şifre çözüldüğünde burada gözükecek.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    function decryptSubmit() {
+        var sifreli_metin = document.getElementById('dec-text').value;
+        const text = decrypt(sifreli_metin);
+
+        if (text) document.getElementById('dec-result').innerHTML = text;
+    }
+
+    function encryptSubmit() {
+        var orijinal_metin = document.getElementById('enc-text').value;
+        const text = encrypt(orijinal_metin);
+
+        if (text) document.getElementById('enc-result').innerHTML = text;
+    }
+</script>
+<script>
+    var tabs = jSuites.tabs(document.getElementById('tabs'), {
+        animation: true,
+        width: '100%'
+    });
+</script>
+<script>
+    require('./scripts/electron.js');
+</script>
+
+</html>
