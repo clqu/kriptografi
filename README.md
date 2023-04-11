@@ -29,13 +29,15 @@ Bu basit örnekte kullanılan yöntem, güvenli bir kriptografi yöntemi değild
 # Sonuç
 Kriptografi, bilgi güvenliği konularını ele alan ve mesajların şifrelenmesi ve çözülmesi işlemleriyle ilgilenen bir bilim dalıdır. Simetrik anahtarlı kriptografi ve açık anahtarlı kriptografi olmak üzere iki temel yöntem kullanılır. Javascript gibi programlama dilleri ile basit şifreleme işlemleri yapılabilir. Ancak, güvenli kriptografi yöntemleri için, özel kütüphanelerin kullanılması önerilir.
 
+---
+
 # Basit Bir Kriptografi Yöntemi
 Bu projedeki yöntem, bir metin veya şifreli metin verildiğinde, metnin karakterlerini belirli sayısal değerlere dönüştürerek şifrelemeyi ve aynı işlemi tersine çevirerek metni şifreden çözmeyi sağlar.
 
 ## Şifreleme Yöntemi
 Şifreleme işlemi, her karakterin alfabetik pozisyonunu belirli bir sayısal değerle eşleştirerek gerçekleştirilir. Bu eşleştirmeler bir dizi içinde saklanır. Dizi öğeleri, bir karakter ve onun eşleştiği sayısal değeri içerir.
 
-**Örneğin**, 'A' karakteri, 0 sayısal değeriyle eşleştirilirken, 'B' karakteri 1 sayısal değeriyle eşleştirilir ve böylece devam eder.
+Örneğin, 'A' karakteri, 0 sayısal değeriyle eşleştirilirken, 'B' karakteri 1 sayısal değeriyle eşleştirilir ve böylece devam eder.
 
 Şifreleme işlemi sırasında, metnin karakterleri bu eşleştirmelere göre sayısal değerlere dönüştürülür ve sonuç olarak bir dizi sayısal değerler elde edilir. Bu sayılar daha sonra onaltılık formatında birleştirilir ve aralarına bir kısa çizgi (-) konulur.
 
@@ -46,7 +48,7 @@ Bu projedeki yöntem, bir metin veya şifreli metin verildiğinde, metnin karakt
 
 Her sayı, eşleştirmelerdeki bir karakterle eşleştirilir ve sonuç olarak metnin karakterleri elde edilir. Bu karakterler birleştirilir ve orijinal metin elde edilir.
 
-**Örneğin**, "9-37-46-46-50" şifreli metni çözüldüğünde, sonuç "HELLO" olacaktır.
+Örneğin, "9-37-46-46-50" şifreli metni çözüldüğünde, sonuç "HELLO" olacaktır.
 
 ## Kullanım
 Bu yöntem, basit bir şifreleme yöntemi olarak kullanılabilir. Ancak, özellikle hassas veriler için güvenli bir yöntem olarak yeterli değildir. Çünkü bu şifreleme yöntemi, her karakterin eşleştirildiği sabit bir sayısal değer kullanır ve şifrelenmiş metnin yapısı açıkça görülebilir. Bu nedenle, daha güvenli şifreleme yöntemleri kullanmak önemlidir.
