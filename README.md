@@ -1,3 +1,16 @@
+### Görseller
+
+Şifrele  |  Şifre Çöz |
+:-------------------------:|:-------------------------:|
+![img](https://github.com/clqu/kriptografi/blob/main/images/image1.jpg) | ![img](https://github.com/clqu/kriptografi/blob/main/images/image2.jpg)
+
+<br /><br /><br />
+
+---
+
+<br />
+
+
 # Kriptografi Nedir?
 Kriptografi, bilgi güvenliği konularını ele alan bir bilim dalıdır. Gizlilik, bütünlük ve kimlik doğrulama gibi konuları ele alarak, mesajların şifrelenmesi (kodlama) ve çözülmesi (dekodlama) işlemleriyle ilgilenir. Bu sayede, iletilen mesajların sadece alıcı tarafından anlaşılmasını sağlar ve üçüncü tarafların mesajları okuyup değiştirmesini engeller.
 
