@@ -42,26 +42,36 @@ Asimetrik şifreleme yönteminin en yaygın kullanılan uygulaması, `SSL (Secur
 
 ### Örnek Kod:
 ```js
-// Asimetrik şifreleme örneği
+const crypto = require('crypto');
 
 // Açık anahtar ve gizli anahtar çifti oluşturulur
-let keys = window.crypto.subtle.generateKey({
-    name: "RSA-OAEP",
+crypto.generateKeyPair('rsa', {
     modulusLength: 4096,
-    publicExponent: new Uint8Array([1, 0, 1]),
-    hash: "SHA-256"
-}, true, ["encrypt", "decrypt"]);
+    publicKeyEncoding: {
+        type: 'pkcs1',
+        format: 'pem'
+    },
+    privateKeyEncoding: {
+        type: 'pkcs1',
+        format: 'pem'
+    }
+}, (err, publicKey, privateKey) => {
+    if (err) throw err;
+    // Mesaj şifrelenir
+    let message = Buffer.from('Hello World');
+    let encryptedMessage = crypto.publicEncrypt({
+        key: publicKey,
+        padding: crypto.constants.RSA_PKCS1_OAEP_PADDING
+    }, message);
 
-// Mesaj şifrelenir
-let message = new Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100]);
-let encryptedMessage = window.crypto.subtle.encrypt({
-    name: "RSA-OAEP"
-}, keys.publicKey, message);
+    // Şifrelenmiş mesaj çözülür
+    let decryptedMessage = crypto.privateDecrypt({
+        key: privateKey,
+        padding: crypto.constants.RSA_PKCS1_OAEP_PADDING
+    }, encryptedMessage);
 
-// Şifrelenmiş mesaj çözülür
-let decryptedMessage = window.crypto.subtle.decrypt({
-    name: "RSA-OAEP"
-}, keys.privateKey, encryptedMessage);
+    console.log(decryptedMessage.toString());
+});
 ```
 
 ## Karmaşık Şifreleme Yöntemleri
