@@ -13,8 +13,6 @@ Kriptografi, tarihi oldukça eski zamanlara dayanır. İlk olarak `M.Ö. 4000 y�
 ### Simetrik Şifreleme
 Simetrik şifreleme, aynı anahtarın hem şifreleme hem de deşifreleme işlemlerinde kullanıldığı bir şifreleme yöntemidir. Bu yöntemde, şifrelenmiş verilerin güvenliği, anahtarın güvenliği ile doğrudan ilişkilidir. Eğer anahtar bir şekilde ele geçirilirse, tüm veriler açığa çıkabilir.
 ```js
-// Simetrik Şifreleme - DES
-
 const crypto = require('crypto');
 
 const secretKey = 'mySecretKey';
@@ -46,7 +44,6 @@ Asimetrik şifreleme yönteminin en yaygın kullanılan uygulaması, `SSL (Secur
 ```js
 const crypto = require('crypto');
 
-// Açık anahtar ve gizli anahtar çifti oluşturulur
 crypto.generateKeyPair('rsa', {
     modulusLength: 4096,
     publicKeyEncoding: {
@@ -59,14 +56,12 @@ crypto.generateKeyPair('rsa', {
     }
 }, (err, publicKey, privateKey) => {
     if (err) throw err;
-    // Mesaj şifrelenir
     let message = Buffer.from('Hello World');
     let encryptedMessage = crypto.publicEncrypt({
         key: publicKey,
         padding: crypto.constants.RSA_PKCS1_OAEP_PADDING
     }, message);
 
-    // Şifrelenmiş mesaj çözülür
     let decryptedMessage = crypto.privateDecrypt({
         key: privateKey,
         padding: crypto.constants.RSA_PKCS1_OAEP_PADDING
