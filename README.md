@@ -1,16 +1,105 @@
 # Kriptografi Nedir?
 Kriptografi, bilgi güvenliği konularını ele alan bir bilim dalıdır. Gizlilik, bütünlük ve kimlik doğrulama gibi konuları ele alarak, mesajların şifrelenmesi (kodlama) ve çözülmesi (dekodlama) işlemleriyle ilgilenir. Bu sayede, iletilen mesajların sadece alıcı tarafından anlaşılmasını sağlar ve üçüncü tarafların mesajları okuyup değiştirmesini engeller.
 
-Kriptografi, tarihi oldukça eski zamanlara dayanır. İlk olarak M.Ö. 4000 yıllarında, Mısır'da papirüs üzerine yazılan metinlerde kullanılan sembollerle başladığı düşünülmektedir. Günümüzde, kriptografi hala askeri, devlet, bankacılık, e-ticaret ve birçok diğer endüstriyel sektörlerde kullanılmaktadır.
+Kriptografi, tarihi oldukça eski zamanlara dayanır. İlk olarak `M.Ö. 4000 yıllarında`, Mısır'da papirüs üzerine yazılan metinlerde kullanılan sembollerle başladığı düşünülmektedir. Günümüzde, kriptografi hala askeri, devlet, bankacılık, e-ticaret ve birçok diğer endüstriyel sektörlerde kullanılmaktadır.
 
-# Kriptografi Yöntemleri
-Kriptografi, iki temel yöntemle mesajları şifreler ve çözer: simetrik anahtarlı kriptografi ve açık anahtarlı kriptografi.
+# Şifreleme Yöntemleri
+Şifreleme, verileri okunamaz hale getirmek için kullanılan bir yöntemdir. Bu, verilerin güvenliği için önemlidir. Şifreleme, simetrik ve asimetrik olmak üzere iki temel şekilde gerçekleştirilebilir.
 
-### Simetrik Anahtarlı Kriptografi
-Simetrik anahtarlı kriptografi, mesajın şifrelenmesinde ve çözülmesinde aynı anahtarın kullanılması prensibine dayanır. Bu yöntemde, anahtarın güvenliği çok önemlidir, çünkü anahtara sahip olan herkes mesajı çözebilir. Bu nedenle, anahtarın güvenli bir şekilde paylaşılması gereklidir.
+## Simetrik Şifreleme
+Simetrik şifreleme, aynı anahtarın hem şifreleme hem de deşifreleme işlemlerinde kullanıldığı bir şifreleme yöntemidir. Bu yöntemde, şifrelenmiş verilerin güvenliği, anahtarın güvenliği ile doğrudan ilişkilidir. Eğer anahtar bir şekilde ele geçirilirse, tüm veriler açığa çıkabilir.
 
-### Açık Anahtarlı Kriptografi
-Açık anahtarlı kriptografi, her kullanıcının şifreleme ve çözme işlemleri için farklı iki anahtar kullanması prensibine dayanır. Bu yöntemde, her kullanıcının bir açık anahtarı (herkes tarafından bilinen) ve bir özel anahtarı (sadece kullanıcının bildiği) vardır. Mesaj gönderildiğinde, gönderen kullanıcının alıcının açık anahtarını kullanarak mesajı şifreler ve gönderir. Mesajı alan kullanıcı, kendi özel anahtarını kullanarak mesajı çözer.
+### Örnek Kod:
+```js
+// Simetrik Şifreleme - DES
+
+const crypto = require('crypto');
+
+const secretKey = 'mySecretKey';
+const data = 'Merhaba, dünya!';
+
+const cipher = crypto.createCipheriv('des-ede3', secretKey, null);
+let encryptedData = cipher.update(data, 'utf8', 'hex');
+encryptedData += cipher.final('hex');
+
+console.log('Şifrelenmiş Veri:', encryptedData);
+
+const decipher = crypto.createDecipheriv('des-ede3', secretKey, null);
+let decryptedData = decipher.update(encryptedData, 'hex', 'utf8');
+decryptedData += decipher.final('utf8');
+
+console.log('Deşifrelenmiş Veri:', decryptedData);
+```
+
+# Asimetrik Şifreleme
+Asimetrik şifreleme, diğer adıyla açık anahtarlı şifreleme, farklı bir şifreleme yaklaşımıdır. Bu yöntemde, iki farklı anahtar kullanılır: açık anahtar ve gizli anahtar.
+
+Açık anahtar, herkes tarafından bilinebilir ve iletişimdeki herkes tarafından kullanılabilir. Bu anahtar, mesajların şifrelenmesinde kullanılır. Gizli anahtar ise, sadece mesajların alıcısı tarafından bilinir ve mesajın şifresinin çözülmesinde kullanılır.
+
+Asimetrik şifreleme, mesajın şifrelenmesi ve çözülmesi işlemlerinde matematiksel işlemler kullanır. Bu işlemler, genellikle büyük sayılarla çalışır ve mesajın şifrelenmesi ve çözülmesi işlemleri oldukça yavaş olabilir. Ancak, bu yöntem, özellikle güvenlik açısından daha güçlü bir yöntemdir ve çift taraflı kimlik doğrulama gibi işlemleri gerçekleştirmek için de kullanılabilir.
+
+Asimetrik şifreleme yönteminin en yaygın kullanılan uygulaması, `SSL (Secure Sockets Layer)` ve `TLS (Transport Layer Security)` protokolleridir. Bu protokoller, internet üzerinde güvenli bir şekilde bilgi alışverişi yapmak için kullanılır.
+
+### Örnek Kod:
+```js
+// Asimetrik şifreleme örneği
+
+// Açık anahtar ve gizli anahtar çifti oluşturulur
+let keys = window.crypto.subtle.generateKey({
+    name: "RSA-OAEP",
+    modulusLength: 4096,
+    publicExponent: new Uint8Array([1, 0, 1]),
+    hash: "SHA-256"
+}, true, ["encrypt", "decrypt"]);
+
+// Mesaj şifrelenir
+let message = new Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100]);
+let encryptedMessage = window.crypto.subtle.encrypt({
+    name: "RSA-OAEP"
+}, keys.publicKey, message);
+
+// Şifrelenmiş mesaj çözülür
+let decryptedMessage = window.crypto.subtle.decrypt({
+    name: "RSA-OAEP"
+}, keys.privateKey, encryptedMessage);
+```
+
+## Karmaşık Şifreleme Yöntemleri
+Karmaşık şifreleme yöntemleri, diğer şifreleme yöntemlerine kıyasla daha güçlüdür ve daha yüksek seviyede güvenlik sağlarlar. Bu yöntemler, genellikle karmaşık matematiksel işlemler ve algoritmalar kullanırlar.
+
+Bazı karmaşık şifreleme yöntemleri arasında `AES (Advanced Encryption Standard)`, `Blowfish`, `Twofish`, `Serpent` ve `Camellia` gibi yöntemler yer alır.
+
+### Blok Şifreleme
+Blok şifreleme, mesajın bölümlere ayrılması ve her bir bölümün ayrı ayrı şifrelenmesiyle gerçekleştirilir. Bu yöntemde, mesajın bölümlerinin boyutu belirlenir ve şifreleme işlemi blok boyutları üzerinde gerçekleştirilir. Örneğin, AES şifreleme yöntemi, 128 bit blokları şifreler.
+
+Blok şifreleme yönteminin güvenliği, kullanılan şifreleme algoritmasının güvenliği ve blok boyutu gibi faktörlere bağlıdır. Blok boyutu ne kadar büyükse, güvenlik seviyesi o kadar yüksek olur. Ancak, blok boyutu arttıkça işlem zamanı da artar.
+
+### Akış Şifreleme
+Akış şifreleme, mesajın bölünmesi yerine bitlerin ayrı ayrı şifrelenmesiyle gerçekleştirilir. Bu yöntemde, şifreleme anahtarı bit bit kullanılır ve şifreleme işlemi, her bir bitin şifrelenmesiyle gerçekleştirilir.
+
+Akış şifreleme yönteminde, mesajın uzunluğu ne olursa olsun, şifreleme işlemi aynı hızda gerçekleşir. Ancak, anahtar yönetimi daha karmaşıktır ve güvenliği, kullanılan şifreleme algoritmasının güvenliği ve anahtar yönetimi gibi faktörlere bağlıdır.
+
+### Karma Fonksiyonlar
+Karma fonksiyonları, verilen mesajdan sabit boyutlu bir çıktı üretirler. Bu çıktı, bir parmak izi olarak kullanılabilir ve mesajın bütünlüğünün korunmasında önemli bir rol oynar.
+
+Karma fonksiyonlarının en önemli özelliği, mesajın değiştirilmesi durumunda, çıktıda büyük bir farklılık oluşmasıdır. Bu nedenle, karma fonksiyonları, mesajın bütünlüğünün doğrulanması, mesajın kimliğinin doğrulanması ve şifreleme anahtarlarının oluşturulması gibi alanlarda yaygın olarak kullanılır.
+
+Örnek olarak, `SHA-3` ve `SHA-256` gibi karma fonksiyonları, verilen mesajlardan sabit boyutlu çıktılar üretirler.
+
+### Örnek Kod:
+```js
+const crypto require('crypto');
+
+const message = 'Hello World!';
+
+const hash = crypto.createHash('sha256');
+hash.update(message);
+
+const hash_hex = hash.digest('hex');
+
+console.log(hash_hex);
+```
+Yukarıdaki örnekte, "Hello World!" mesajı SHA-256 algoritması kullanılarak karma fonksiyonuna verilir ve çıktısı hesaplanır. Çıktı, hex formatında `c3b...b7` olarak verilir.
 
 # Javascript ile Basit Kriptografi
 Javascript, web tabanlı uygulamaların geliştirilmesi için kullanılan bir programlama dilidir. Javascript ile basit şifreleme işlemleri yapılabilir. Örneğin, bir metnin şifrelenmesi için, metin ve anahtar kelime girdisi alanı olan bir web formu oluşturulabilir. Formda yer alan "Metni Şifrele" ve "Metni Çöz" düğmeleri ile de kullanıcının verileri işlenebilir. Ancak, gerçek hayatta kullanılan güvenli kriptografi yöntemleri için, özel kütüphanelerin kullanılması önerilir.
@@ -25,9 +114,6 @@ Javascript ile basit bir şifreleme örneği yapmak için, aşağıdaki adımlar
 - Şifrelenmiş metin çözülmek istendiğinde, aynı işlem tersine çevrilerek orijinal metin elde edilir.
 
 Bu basit örnekte kullanılan yöntem, güvenli bir kriptografi yöntemi değildir. Sadece, kriptografi kavramını anlamak ve basit şifreleme işlemleri yapmak için kullanılabilir.
-
-# Sonuç
-Kriptografi, bilgi güvenliği konularını ele alan ve mesajların şifrelenmesi ve çözülmesi işlemleriyle ilgilenen bir bilim dalıdır. Simetrik anahtarlı kriptografi ve açık anahtarlı kriptografi olmak üzere iki temel yöntem kullanılır. Javascript gibi programlama dilleri ile basit şifreleme işlemleri yapılabilir. Ancak, güvenli kriptografi yöntemleri için, özel kütüphanelerin kullanılması önerilir.
 
 ---
 
